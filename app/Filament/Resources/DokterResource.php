@@ -15,7 +15,7 @@ class DokterResource extends Resource
     protected static ?string $model = Dokter::class;
 
     protected static ?string $navigationIcon  = 'heroicon-o-user';
-    protected static ?string $navigationGroup = 'Data Master';
+    protected static ?string $navigationGroup = 'Master Data';
     protected static ?string $navigationLabel = 'Dokter';
     protected static ?int    $navigationSort  = 2;
 

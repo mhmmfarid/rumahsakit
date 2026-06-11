@@ -18,9 +18,18 @@ class RolePermissionSeeder extends Seeder
             'kelola pasien',
             'kelola dokter',
             'kelola poli',
-            'kelola pemeriksaan',
             'kelola obat',
+            'kelola pemeriksaan',
             'kelola resep',
+            'kelola kategori artikel',
+            'kelola tag artikel',
+            'kelola artikel',
+            'kelola komentar',
+            'kelola newsletter',
+            'kelola user',
+            'kelola role',
+            'kelola permission',
+            'kelola konfigurasi',
         ];
 
         foreach ($permissions as $permission) {
@@ -31,8 +40,12 @@ class RolePermissionSeeder extends Seeder
         $admin = Role::firstOrCreate(['name' => 'admin']);
         $admin->syncPermissions($permissions);
 
-        // Buat Role Petugas — hanya view, create, update (tanpa delete)
+        // Buat Role Petugas — hanya area pelayanan dan pendaftaran pasien
         $petugas = Role::firstOrCreate(['name' => 'petugas']);
-        $petugas->syncPermissions($permissions); // Permission dikontrol di Policy
+        $petugas->syncPermissions([
+            'kelola pasien',
+            'kelola pemeriksaan',
+            'kelola resep',
+        ]);
     }
 }

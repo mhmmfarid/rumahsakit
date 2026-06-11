@@ -15,7 +15,7 @@ class PoliResource extends Resource
     protected static ?string $model = Poli::class;
 
     protected static ?string $navigationIcon  = 'heroicon-o-building-office-2';
-    protected static ?string $navigationGroup = 'Data Master';
+    protected static ?string $navigationGroup = 'Master Data';
     protected static ?string $navigationLabel = 'Poli';
     protected static ?int    $navigationSort  = 3;
 

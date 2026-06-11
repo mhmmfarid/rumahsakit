@@ -16,7 +16,7 @@ class ResepObatResource extends Resource
     protected static ?string $model = ResepObat::class;
 
     protected static ?string $navigationIcon  = 'heroicon-o-document-text';
-    protected static ?string $navigationGroup = 'Transaksi';
+    protected static ?string $navigationGroup = 'Pelayanan';
     protected static ?string $navigationLabel = 'Resep Obat';
     protected static ?int    $navigationSort  = 2;
 

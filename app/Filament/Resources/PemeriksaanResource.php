@@ -20,7 +20,7 @@ class PemeriksaanResource extends Resource
     protected static ?string $model = Pemeriksaan::class;
 
     protected static ?string $navigationIcon  = 'heroicon-o-clipboard-document-check';
-    protected static ?string $navigationGroup = 'Transaksi';
+    protected static ?string $navigationGroup = 'Pelayanan';
     protected static ?string $navigationLabel = 'Pemeriksaan';
     protected static ?int    $navigationSort  = 1;
 
