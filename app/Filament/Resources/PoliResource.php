@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class PoliResource extends Resource
 {
@@ -18,6 +19,26 @@ class PoliResource extends Resource
     protected static ?string $navigationGroup = 'Master Data';
     protected static ?string $navigationLabel = 'Poli';
     protected static ?int    $navigationSort  = 3;
+
+    public static function canViewAny(): bool
+    {
+        return Auth::user()->hasAnyRole(['admin', 'petugas']);
+    }
+
+    public static function canCreate(): bool
+    {
+        return Auth::user()->hasRole('admin');
+    }
+
+    public static function canEdit($record): bool
+    {
+        return Auth::user()->hasRole('admin');
+    }
+
+    public static function canDelete($record): bool
+    {
+        return Auth::user()->hasRole('admin');
+    }
 
     public static function form(Form $form): Form
     {
@@ -56,13 +77,17 @@ class PoliResource extends Resource
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
-                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\EditAction::make()
+                        ->visible(fn () => Auth::user()->hasRole('admin')),
                     Tables\Actions\DeleteAction::make()
+                        ->visible(fn () => Auth::user()->hasRole('admin')),
                 ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()                ]),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->visible(fn () => Auth::user()->hasRole('admin')),
+                ]),
             ]);
     }
 

@@ -1,227 +1,329 @@
 @php
-    $heroButtonClasses = 'inline-flex items-center gap-3 rounded-full bg-primary-600 px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary-500/20 transition hover:bg-primary-700';
+    $heroButtonClasses = '';
 @endphp
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Klinik Koehried - Edukasi Kesehatan & Artikel Dokter</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'Poppins', sans-serif; background: #F8FAFC; color: #111827; }
-        .hero-glow { box-shadow: 0 30px 100px rgba(249, 115, 22, 0.12); }
-        .glass-card { background: rgba(255,255,255,0.82); backdrop-filter: blur(14px); }
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'Poppins',sans-serif;background:#0a0f1a;color:#e2e8f0}
+        a{text-decoration:none;color:inherit}
+
+        .tag{display:inline-flex;align-items:center;gap:6px;background:rgba(249,115,22,0.15);color:#fb923c;border:1px solid rgba(249,115,22,0.3);border-radius:999px;padding:5px 14px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+
+        nav{background:#0d1420;border-bottom:1px solid rgba(255,255,255,0.06);position:sticky;top:0;z-index:99;padding:0 2rem}
+        .nav-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;gap:1rem}
+        .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:#f1f5f9}
+        .brand-ico{width:36px;height:36px;background:linear-gradient(135deg,#f97316,#fb923c);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0}
+        .nav-links{display:flex;gap:1.5rem}
+        .nav-links a{font-size:13px;font-weight:500;color:#94a3b8;transition:color .2s}
+        .nav-links a:hover{color:#f1f5f9}
+        .nav-cta{display:flex;gap:.6rem;align-items:center}
+        .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.12);color:#cbd5e1;border-radius:999px;padding:7px 18px;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
+        .btn-ghost:hover{border-color:rgba(255,255,255,0.25);color:#f1f5f9}
+        .btn-primary-nav{background:linear-gradient(135deg,#f97316,#ea580c);border:none;color:#fff;border-radius:999px;padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+        .btn-primary-nav:hover{opacity:.9;transform:translateY(-1px)}
+
+        .hero{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center;padding:5rem 2rem 4rem}
+        .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.25);border-radius:999px;padding:6px 16px;font-size:12px;font-weight:600;color:#fb923c;margin-bottom:1.5rem;letter-spacing:.06em;text-transform:uppercase}
+        .hero h1{font-size:46px;font-weight:800;line-height:1.12;color:#f8fafc;margin-bottom:1.25rem;letter-spacing:-.5px}
+        .hero h1 span{background:linear-gradient(135deg,#f97316,#fb923c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .hero-sub{color:#94a3b8;font-size:15px;line-height:1.8;margin-bottom:2rem;max-width:480px}
+        .hero-btns{display:flex;gap:.75rem;flex-wrap:wrap}
+        .btn-hero{background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;border:none;border-radius:999px;padding:13px 28px;font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .2s;box-shadow:0 8px 24px rgba(249,115,22,0.3)}
+        .btn-hero:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(249,115,22,0.4)}
+        .btn-hero-out{background:transparent;border:1px solid rgba(255,255,255,0.12);color:#cbd5e1;border-radius:999px;padding:12px 26px;font-size:14px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+        .btn-hero-out:hover{border-color:rgba(255,255,255,0.3);color:#f1f5f9;background:rgba(255,255,255,0.04)}
+
+        .hero-card{background:#111827;border:1px solid rgba(255,255,255,0.08);border-radius:24px;padding:2rem;position:relative;overflow:hidden}
+        .hero-card::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(249,115,22,0.12),transparent 70%);pointer-events:none}
+        .hc-top{background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.15);border-radius:14px;padding:1rem 1.25rem;display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}
+        .hc-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#64748b;margin-bottom:3px}
+        .hc-val{font-size:18px;font-weight:700;color:#f1f5f9}
+        .hc-badge{background:rgba(249,115,22,0.15);border-radius:8px;padding:8px 14px;text-align:center}
+        .hc-badge .hc-label{color:#fb923c}
+        .hc-badge .hc-val{font-size:13px;color:#fb923c}
+        .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem}
+        .stat-box{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1rem}
+        .stat-box .lbl{font-size:11px;color:#64748b;margin-bottom:.5rem}
+        .stat-box .num{font-size:28px;font-weight:700;color:#f8fafc}
+        .testimonial{background:rgba(249,115,22,0.06);border:1px solid rgba(249,115,22,0.12);border-radius:14px;padding:1.25rem}
+        .testimonial p{font-size:13px;color:#94a3b8;line-height:1.7;font-style:italic;margin-bottom:.75rem}
+        .testimonial .author{font-size:12px;font-weight:600;color:#fb923c}
+
+        .section{max-width:1120px;margin:0 auto;padding:5rem 2rem}
+        .section-head{text-align:center;margin-bottom:3rem}
+        .section-head h2{font-size:34px;font-weight:800;color:#f8fafc;line-height:1.2;margin-bottom:.75rem;margin-top:.75rem}
+        .section-head p{color:#64748b;font-size:14px;max-width:520px;margin:0 auto;line-height:1.8}
+
+        .why-wrap{background:#0d1420;border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05)}
+        .why-inner{max-width:1120px;margin:0 auto;padding:5rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start}
+        .why-left h2{font-size:32px;font-weight:800;color:#f8fafc;line-height:1.25;margin-bottom:1rem}
+        .why-left p{color:#64748b;font-size:14px;line-height:1.85}
+        .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+        .why-card{background:#111827;border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:1.25rem;transition:border-color .2s}
+        .why-card:hover{border-color:rgba(249,115,22,0.3)}
+        .why-card .wc-tag{font-size:11px;font-weight:600;color:#fb923c;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem}
+        .why-card h3{font-size:14px;font-weight:700;color:#e2e8f0;margin-bottom:.5rem;line-height:1.4}
+        .why-card p{font-size:12px;color:#64748b;line-height:1.7}
+
+        .cats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+        .cat-card{background:#111827;border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:1.75rem;transition:all .25s}
+        .cat-card:hover{border-color:rgba(249,115,22,0.35);transform:translateY(-3px)}
+        .cat-icon{width:52px;height:52px;background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.2);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fb923c;margin-bottom:1rem}
+        .cat-card h3{font-size:15px;font-weight:700;color:#e2e8f0;margin-bottom:.5rem}
+        .cat-card p{font-size:12px;color:#64748b;line-height:1.7}
+
+        .articles-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2rem}
+        .articles-header h2{font-size:28px;font-weight:800;color:#f8fafc}
+        .articles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+        .feat-article{grid-column:1/-1;background:linear-gradient(135deg,#1a0a00,#1c1205 40%,#0d1420);border:1px solid rgba(249,115,22,0.2);border-radius:24px;padding:2.5rem;position:relative;overflow:hidden;margin-bottom:.5rem}
+        .feat-cats{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.25rem}
+        .feat-cats span{background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.25);border-radius:999px;padding:4px 12px;font-size:11px;font-weight:600;color:#fb923c;text-transform:uppercase;letter-spacing:.05em}
+        .feat-article h3{font-size:28px;font-weight:800;color:#f8fafc;line-height:1.2;margin-bottom:1rem;max-width:600px}
+        .feat-article > p{color:#94a3b8;font-size:14px;line-height:1.8;max-width:560px;margin-bottom:1.75rem}
+        .feat-author{display:flex;align-items:center;gap:.75rem;margin-bottom:1.75rem}
+        .feat-author img{width:44px;height:44px;border-radius:50%;border:2px solid rgba(249,115,22,0.3);object-fit:cover}
+        .feat-author .name{font-size:13px;font-weight:600;color:#e2e8f0}
+        .feat-author .role{font-size:11px;color:#64748b}
+        .art-card{background:#111827;border:1px solid rgba(255,255,255,0.07);border-radius:20px;overflow:hidden;transition:all .25s}
+        .art-card:hover{border-color:rgba(249,115,22,0.3);transform:translateY(-3px)}
+        .art-img{width:100%;height:160px;object-fit:cover;display:block}
+        .art-body{padding:1.25rem}
+        .art-cat{font-size:10px;font-weight:600;color:#fb923c;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
+        .art-body h3{font-size:14px;font-weight:700;color:#e2e8f0;line-height:1.45;margin-bottom:.5rem}
+        .art-body p{font-size:12px;color:#64748b;line-height:1.6;margin-bottom:1rem}
+        .art-footer{display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.06);padding-top:.75rem}
+        .art-date{font-size:11px;color:#475569}
+        .art-read{font-size:12px;font-weight:600;color:#fb923c}
+
+        .stats-dark{background:#0d1420;border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05)}
+        .stats-inner{max-width:1120px;margin:0 auto;padding:5rem 2rem;display:grid;grid-template-columns:.9fr repeat(3,1fr);gap:2rem;align-items:start}
+        .si-left h2{font-size:22px;font-weight:700;color:#f8fafc;margin-bottom:.75rem}
+        .si-left p{font-size:13px;color:#64748b;line-height:1.75}
+        .si-card{background:#111827;border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:1.5rem}
+        .si-card .lbl{font-size:10px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.1em;margin-bottom:1rem}
+        .si-card .big{font-size:38px;font-weight:800;color:#f8fafc;margin-bottom:.25rem}
+        .si-card .sub{font-size:12px;color:#475569}
+
+        .footer{background:#060b14;border-top:1px solid rgba(255,255,255,0.06)}
+        .footer-inner{max-width:1120px;margin:0 auto;padding:3.5rem 2rem;display:flex;justify-content:space-between;align-items:center;gap:2rem}
+        .foot-left h3{font-size:22px;font-weight:800;color:#f8fafc;margin-bottom:.5rem}
+        .foot-left p{font-size:13px;color:#64748b;max-width:420px;line-height:1.75}
+        .foot-cta{background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;border:none;border-radius:999px;padding:13px 28px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .2s;box-shadow:0 6px 20px rgba(249,115,22,0.25)}
+        .foot-cta:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(249,115,22,0.35)}
     </style>
 </head>
-<body class="antialiased">
-    <header class="border-b border-slate-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-        <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-            <a href="{{ route('home') }}" class="inline-flex items-center gap-3 text-lg font-bold text-slate-900">
-                <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-500 text-white">K</span>
-                Klinik Koehried
-            </a>
-            <nav class="hidden items-center gap-8 text-sm font-medium text-slate-600 lg:flex">
-                <a href="#why" class="hover:text-slate-900 transition">Mengapa Klinik</a>
-                <a href="#features" class="hover:text-slate-900 transition">Edukasi</a>
-                <a href="#articles" class="hover:text-slate-900 transition">Artikel</a>
-                <a href="#statistik" class="hover:text-slate-900 transition">Laporan</a>
-            </nav>
-            <a href="{{ route('artikel-kesehatan.index') }}" class="rounded-full border border-slate-200 bg-white px-5 py-2 text-sm font-semibold text-slate-900 transition hover:border-slate-300 hover:bg-slate-50">Kunjungi Blog</a>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="{{ route('home') }}" class="brand">
+      <div class="brand-ico">K</div>
+      Klinik Koehried
+    </a>
+    <div class="nav-links">
+      <a href="#why">Mengapa Klinik</a>
+      <a href="#features">Edukasi</a>
+      <a href="#articles">Artikel</a>
+      <a href="#statistik">Laporan</a>
+    </div>
+    <div class="nav-cta">
+      <a href="{{ route('artikel-kesehatan.index') }}" class="btn-ghost">Kunjungi Blog</a>
+      @auth
+        <a href="{{ route('filament.admin.pages.dashboard') }}" class="btn-primary-nav">Dashboard</a>
+        <form action="{{ route('logout') }}" method="POST" style="display:inline">@csrf
+          <button type="submit" class="btn-ghost">Logout</button>
+        </form>
+      @else
+        <a href="{{ route('filament.admin.auth.login') }}" class="btn-primary-nav">Login</a>
+      @endauth
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="hero-badge">&#9829; Edukasi Kesehatan</div>
+      <h1>Portal Kesehatan &amp; Artikel <span>Dokter</span> yang Mudah Dipahami</h1>
+      <p class="hero-sub">Temukan informasi medis terpercaya, tips kesehatan harian, dan artikel dokter untuk keluarga Anda.</p>
+      <div class="hero-btns">
+        <a href="#articles" class="btn-hero">Lihat Artikel Terbaru</a>
+        <a href="#why" class="btn-hero-out">Pelajari Lebih Lanjut</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hc-top">
+        <div>
+          <div class="hc-label">Klinik Koehried</div>
+          <div class="hc-val">Layanan Digital</div>
         </div>
-    </header>
+        <div class="hc-badge">
+          <div class="hc-label">Update</div>
+          <div class="hc-val">Realtime</div>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-box"><div class="lbl">Artikel Terbit</div><div class="num">{{ $stats['articles'] }}</div></div>
+        <div class="stat-box"><div class="lbl">Kategori</div><div class="num">{{ $stats['categories'] }}</div></div>
+        <div class="stat-box"><div class="lbl">Dokter</div><div class="num">{{ $stats['doctors'] }}</div></div>
+        <div class="stat-box"><div class="lbl">Pasien</div><div class="num">{{ $stats['patients'] }}</div></div>
+      </div>
+      <div class="testimonial">
+        <p>"Platform yang simpel, responsif, dan membantu saya memahami rekomendasi dokter dengan cepat."</p>
+        <div class="author">— Farah, pasien</div>
+      </div>
+    </div>
+  </section>
 
-    <main class="mx-auto max-w-7xl px-6 py-10 lg:px-8">
-        <section class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-            <div class="space-y-6">
-                <p class="inline-flex rounded-full bg-primary-100 px-4 py-2 text-sm font-semibold text-primary-700">Edukasi Kesehatan</p>
-                <h1 class="max-w-3xl text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl">Klinik Koehried: Portal Kesehatan dan Artikel Dokter yang Mudah Dipahami</h1>
-                <p class="max-w-2xl text-base leading-8 text-slate-600">Temukan informasi medis terpercaya, tips kesehatan harian, dan artikel dokter untuk keluarga Anda. Semua dirancang agar lebih mudah dibaca dan langsung membantu keputusan kesehatan.</p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#articles" class="{{ $heroButtonClasses }}">Lihat Artikel Terbaru</a>
-                    <a href="#why" class="inline-flex items-center rounded-full border border-slate-300 px-6 py-4 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">Pelajari Lebih Lanjut</a>
-                </div>
-            </div>
-            <div class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary-500 to-orange-400 p-1 shadow-2xl shadow-primary-500/20">
-                <div class="glass-card rounded-[1.75rem] p-8 text-white">
-                    <div class="mb-8 flex items-center justify-between rounded-3xl bg-white/10 px-5 py-4 shadow-lg shadow-black/5">
-                        <div>
-                            <p class="text-sm uppercase tracking-[0.3em] text-white/70">Klinik Koehried</p>
-                            <h2 class="text-2xl font-semibold">Layanan Digital</h2>
-                        </div>
-                        <div class="rounded-2xl bg-white/20 px-4 py-3 text-center">
-                            <p class="text-xs uppercase text-white/70">Update</p>
-                            <p class="text-lg font-bold">Realtime</p>
-                        </div>
-                    </div>
-                    <div class="space-y-6">
-                        <div class="grid gap-4 sm:grid-cols-2">
-                            <div class="rounded-3xl bg-white/15 p-5">
-                                <p class="text-sm text-white/80">Artikel Terbit</p>
-                                <p class="mt-4 text-3xl font-semibold">{{ $stats['articles'] }}</p>
-                            </div>
-                            <div class="rounded-3xl bg-white/15 p-5">
-                                <p class="text-sm text-white/80">Kategori Edukasi</p>
-                                <p class="mt-4 text-3xl font-semibold">{{ $stats['categories'] }}</p>
-                            </div>
-                        </div>
-                        <div class="grid gap-4 sm:grid-cols-2">
-                            <div class="rounded-3xl bg-white/15 p-5">
-                                <p class="text-sm text-white/80">Dokter Tersedia</p>
-                                <p class="mt-4 text-3xl font-semibold">{{ $stats['doctors'] }}</p>
-                            </div>
-                            <div class="rounded-3xl bg-white/15 p-5">
-                                <p class="text-sm text-white/80">Pasien Terlayani</p>
-                                <p class="mt-4 text-3xl font-semibold">{{ $stats['patients'] }}</p>
-                            </div>
-                        </div>
-                        <div class="rounded-[1.75rem] bg-white/15 p-6">
-                            <p class="text-sm uppercase tracking-[0.4em] text-white/75">Kesan pengguna</p>
-                            <p class="mt-4 text-lg leading-8">"Platform yang simpel, responsif, dan membantu saya memahami rekomendasi dokter dengan cepat."</p>
-                            <p class="mt-4 font-semibold">— Farah, pasien</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <!-- WHY -->
+  <div class="why-wrap" id="why">
+    <div class="why-inner">
+      <div class="why-left">
+        <div class="tag" style="margin-bottom:1rem">Kenapa pilih kami?</div>
+        <h2>Konten medis jernih untuk semua usia, langsung dari praktisi.</h2>
+        <p>Panduan mudah dimengerti, ringkasan masalah kesehatan umum, dan insight dokter yang relevan untuk kebutuhan keluarga Anda.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="wc-tag">Praktis</div>
+          <h3>Ringkas & langsung ke inti</h3>
+          <p>Artikel ditulis untuk memudahkan keputusan sehari-hari tanpa jargon yang sulit.</p>
+        </div>
+        <div class="why-card">
+          <div class="wc-tag">Terpercaya</div>
+          <h3>Konten dokter & spesialis</h3>
+          <p>Konten divalidasi oleh tim medis agar tetap akurat dan relevan.</p>
+        </div>
+        <div class="why-card">
+          <div class="wc-tag">Terstruktur</div>
+          <h3>Kategori kesehatan</h3>
+          <p>Temukan topik dari gaya hidup hingga perawatan medis.</p>
+        </div>
+        <div class="why-card">
+          <div class="wc-tag">Akses cepat</div>
+          <h3>Tampilan mobile-friendly</h3>
+          <p>Cocok dibaca dari ponsel, tablet, maupun desktop kapan saja.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <section id="why" class="mt-24 rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm shadow-slate-200/50">
-            <div class="grid gap-8 lg:grid-cols-2">
-                <div class="space-y-4">
-                    <p class="text-sm font-semibold uppercase tracking-[0.3em] text-primary-600">Kenapa pilih Klinik Koehried?</p>
-                    <h2 class="text-3xl font-bold text-slate-950">Konten medis jernih untuk semua usia, langsung dari praktisi kesehatan.</h2>
-                    <p class="text-slate-600">Kami memberikan panduan yang mudah dimengerti, ringkasan masalah kesehatan umum, dan insight dokter yang relevan untuk kebutuhan keluarga Anda.</p>
-                </div>
-                <div class="grid gap-4 sm:grid-cols-2">
-                    <article class="rounded-3xl border border-slate-200 p-6">
-                        <p class="text-sm font-semibold text-primary-700">Praktis</p>
-                        <h3 class="mt-3 text-xl font-semibold text-slate-950">Ringkas & langsung ke inti</h3>
-                        <p class="mt-3 text-slate-600">Artikel ditulis untuk memudahkan keputusan sehari-hari tanpa jargon yang sulit.</p>
-                    </article>
-                    <article class="rounded-3xl border border-slate-200 p-6">
-                        <p class="text-sm font-semibold text-primary-700">Terpercaya</p>
-                        <h3 class="mt-3 text-xl font-semibold text-slate-950">Konten dokter & spesialis</h3>
-                        <p class="mt-3 text-slate-600">Konten divalidasi oleh tim medis agar tetap akurat dan relevan.</p>
-                    </article>
-                    <article class="rounded-3xl border border-slate-200 p-6">
-                        <p class="text-sm font-semibold text-primary-700">Terstruktur</p>
-                        <h3 class="mt-3 text-xl font-semibold text-slate-950">Kategori kesehatan</h3>
-                        <p class="mt-3 text-slate-600">Temukan topik kesehatan populer, mulai dari gaya hidup hingga perawatan medis.</p>
-                    </article>
-                    <article class="rounded-3xl border border-slate-200 p-6">
-                        <p class="text-sm font-semibold text-primary-700">Akses cepat</p>
-                        <h3 class="mt-3 text-xl font-semibold text-slate-950">Tampilan mobile-friendly</h3>
-                        <p class="mt-3 text-slate-600">Cocok dibaca dari ponsel, tablet, maupun desktop kapan saja.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
+  <!-- CATEGORIES -->
+  <section class="section" id="features">
+    <div class="section-head">
+      <div class="tag">Edukasi untuk pengguna</div>
+      <h2>Topik edukasi kesehatan populer</h2>
+      <p>Kategori yang paling banyak dicari pasien dan keluarga.</p>
+    </div>
+    <div class="cats-grid">
+      @foreach($categories as $category)
+      <div class="cat-card">
+        <div class="cat-icon">{{ strtoupper(substr($category->name, 0, 2)) }}</div>
+        <h3>{{ $category->name }}</h3>
+        <p>{{ $category->posts_count }} artikel praktis dari dokter dan tenaga medis.</p>
+      </div>
+      @endforeach
+    </div>
+  </section>
 
-        <section id="features" class="mt-24">
-            <div class="flex flex-col items-center gap-4 text-center">
-                <p class="text-sm font-semibold uppercase tracking-[0.3em] text-primary-600">Edukasi untuk pengguna</p>
-                <h2 class="text-3xl font-bold text-slate-950">Topik edukasi kesehatan populer</h2>
-                <p class="max-w-2xl text-slate-600">Kategori yang paling banyak dicari pasien dan keluarga untuk memulai gaya hidup sehat.</p>
-            </div>
-            <div class="mt-10 grid gap-5 lg:grid-cols-3">
-                @foreach($categories as $category)
-                <article class="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-                    <div class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-3xl bg-primary-50 text-primary-700">{{ strtoupper(substr($category->name, 0, 2)) }}</div>
-                    <h3 class="text-xl font-semibold text-slate-950">{{ $category->name }}</h3>
-                    <p class="mt-3 text-slate-600">{{ $category->posts_count }} artikel praktis dari dokter dan tenaga medis.</p>
-                </article>
-                @endforeach
-            </div>
-        </section>
+  <!-- ARTICLES -->
+  <section class="section" id="articles" style="padding-top:0">
+    <div class="articles-header">
+      <div>
+        <div class="tag" style="margin-bottom:.75rem">Artikel terbaru</div>
+        <h2>Pilihan bacaan paling direkomendasikan</h2>
+      </div>
+      <a href="{{ route('artikel-kesehatan.index') }}" class="btn-ghost">Lihat semua &rarr;</a>
+    </div>
 
-        <section id="articles" class="mt-24">
-            <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                <div>
-                    <p class="text-sm font-semibold uppercase tracking-[0.3em] text-primary-600">Artikel terbaru</p>
-                    <h2 class="text-3xl font-bold text-slate-950">Pilihan bacaan paling direkomendasikan</h2>
-                </div>
-                <a href="{{ route('artikel-kesehatan.index') }}" class="inline-flex items-center rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50">Lihat semua artikel</a>
-            </div>
-            <div class="mt-10 grid gap-6 lg:grid-cols-3">
-                @if($featuredPost)
-                <article class="col-span-full overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary-500 to-orange-400 p-8 text-white shadow-2xl shadow-primary-500/20">
-                    <p class="text-sm uppercase tracking-[0.3em] text-white/80">Artikel Unggulan</p>
-                    <h3 class="mt-4 text-3xl font-bold">{{ $featuredPost->title }}</h3>
-                    <p class="mt-5 max-w-2xl text-base leading-8 text-white/90">{{ Str::limit($featuredPost->sub_title, 160) }}</p>
-                    <div class="mt-8 flex flex-wrap items-center gap-4">
-                        @foreach($featuredPost->categories as $category)
-                        <span class="rounded-full bg-white/15 px-3 py-1 text-sm font-semibold text-white">{{ $category->name }}</span>
-                        @endforeach
-                    </div>
-                    <div class="mt-8 flex items-center gap-4">
-                        <img class="h-14 w-14 rounded-full border border-white/25 object-cover" src="{{ asset($featuredPost->user->avatar) }}" alt="{{ $featuredPost->user->name() }}">
-                        <div>
-                            <p class="text-sm text-white/80">Ditulis oleh</p>
-                            <p class="font-semibold">{{ $featuredPost->user->name() }}</p>
-                        </div>
-                    </div>
-                    <div class="mt-8">
-                        <a href="{{ route('artikel-kesehatan.show', ['post' => $featuredPost->slug]) }}" class="inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100">Baca sekarang</a>
-                    </div>
-                </article>
-                @endif
+    @if($featuredPost)
+    <div class="feat-article">
+      <div class="feat-cats">
+        @foreach($featuredPost->categories as $category)
+          <span>{{ $category->name }}</span>
+        @endforeach
+        <span>Unggulan</span>
+      </div>
+      <h3>{{ $featuredPost->title }}</h3>
+      <p>{{ Str::limit($featuredPost->sub_title, 180) }}</p>
+      <div class="feat-author">
+        <img src="{{ asset($featuredPost->user->avatar) }}" alt="{{ $featuredPost->user->name() }}">
+        <div>
+          <div class="name">{{ $featuredPost->user->name() }}</div>
+          <div class="role">Penulis</div>
+        </div>
+      </div>
+      <a href="{{ route('artikel-kesehatan.show', ['post' => $featuredPost->slug]) }}" class="btn-hero">Baca sekarang</a>
+    </div>
+    @endif
 
-                @foreach($recentPosts as $post)
-                <article class="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-                    <img class="h-56 w-full rounded-3xl object-cover" src="{{ asset($post->featurePhoto) }}" alt="{{ $post->photo_alt_text }}">
-                    <div class="mt-5">
-                        <p class="text-sm uppercase tracking-[0.3em] text-primary-600">{{ $post->categories->first()?->name ?? 'Artikel' }}</p>
-                        <h3 class="mt-3 text-2xl font-semibold text-slate-950">{{ $post->title }}</h3>
-                        <p class="mt-4 text-slate-600">{{ Str::limit($post->sub_title, 130) }}</p>
-                    </div>
-                    <div class="mt-6 flex items-center justify-between text-sm text-slate-500">
-                        <span>{{ $post->formattedPublishedDate() }}</span>
-                        <a href="{{ route('artikel-kesehatan.show', ['post' => $post->slug]) }}" class="font-semibold text-primary-600 hover:text-primary-700">Baca</a>
-                    </div>
-                </article>
-                @endforeach
-            </div>
-        </section>
+    <div class="articles-grid" style="margin-top:1.25rem">
+      @foreach($recentPosts as $post)
+      <div class="art-card">
+        <img class="art-img" src="{{ asset($post->featurePhoto) }}" alt="{{ $post->photo_alt_text }}">
+        <div class="art-body">
+          <div class="art-cat">{{ $post->categories->first()?->name ?? 'Artikel' }}</div>
+          <h3>{{ $post->title }}</h3>
+          <p>{{ Str::limit($post->sub_title, 100) }}</p>
+          <div class="art-footer">
+            <span class="art-date">{{ $post->formattedPublishedDate() }}</span>
+            <a href="{{ route('artikel-kesehatan.show', ['post' => $post->slug]) }}" class="art-read">Baca &rarr;</a>
+          </div>
+        </div>
+      </div>
+      @endforeach
+    </div>
+  </section>
 
-        <section id="statistik" class="mt-24 rounded-[2rem] bg-slate-950 px-8 py-12 text-white shadow-2xl shadow-slate-900/10">
-            <div class="grid gap-10 lg:grid-cols-4">
-                <div class="space-y-4">
-                    <p class="text-sm uppercase tracking-[0.3em] text-primary-300">Laporan inti</p>
-                    <h2 class="text-2xl font-bold">Ringkasan layanan Klinik Koehried</h2>
-                    <p class="text-slate-300">Data real-time pengguna, artikel, dan capaian edukasi kesehatan untuk membantu pengalaman pasien menjadi lebih baik.</p>
-                </div>
-                <div class="rounded-[1.75rem] bg-white/8 p-7">
-                    <p class="text-sm uppercase tracking-[0.3em] text-slate-300">Artikel</p>
-                    <p class="mt-4 text-4xl font-bold">{{ $stats['articles'] }}</p>
-                    <p class="mt-2 text-sm text-slate-300">Artikel edukasi yang sudah terbit</p>
-                </div>
-                <div class="rounded-[1.75rem] bg-white/8 p-7">
-                    <p class="text-sm uppercase tracking-[0.3em] text-slate-300">Kategori</p>
-                    <p class="mt-4 text-4xl font-bold">{{ $stats['categories'] }}</p>
-                    <p class="mt-2 text-sm text-slate-300">Subtopik kesehatan yang tersedia</p>
-                </div>
-                <div class="rounded-[1.75rem] bg-white/8 p-7">
-                    <p class="text-sm uppercase tracking-[0.3em] text-slate-300">Dokter & Pasien</p>
-                    <p class="mt-4 text-4xl font-bold">{{ $stats['doctors'] }} / {{ $stats['patients'] }}</p>
-                    <p class="mt-2 text-sm text-slate-300">Tenaga medis dan pasien aktif</p>
-                </div>
-            </div>
-        </section>
+  <!-- STATS -->
+  <div class="stats-dark" id="statistik">
+    <div class="stats-inner">
+      <div class="si-left">
+        <div class="tag" style="margin-bottom:1rem">Laporan inti</div>
+        <h2>Ringkasan layanan Klinik Koehried</h2>
+        <p>Data real-time pengguna, artikel, dan capaian edukasi kesehatan.</p>
+      </div>
+      <div class="si-card">
+        <div class="lbl">Artikel</div>
+        <div class="big">{{ $stats['articles'] }}</div>
+        <div class="sub">Artikel edukasi terbit</div>
+      </div>
+      <div class="si-card">
+        <div class="lbl">Kategori</div>
+        <div class="big">{{ $stats['categories'] }}</div>
+        <div class="sub">Subtopik tersedia</div>
+      </div>
+      <div class="si-card">
+        <div class="lbl">Dokter / Pasien</div>
+        <div class="big">{{ $stats['doctors'] }} / {{ $stats['patients'] }}</div>
+        <div class="sub">Tenaga medis & pasien aktif</div>
+      </div>
+    </div>
+  </div>
 
-        <footer class="mt-24 rounded-[2rem] border border-slate-200 bg-white px-8 py-12 text-slate-600 shadow-sm shadow-slate-200/50">
-            <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-                <div>
-                    <p class="text-sm font-semibold uppercase tracking-[0.3em] text-primary-600">Klinik Koehried</p>
-                    <h3 class="mt-4 text-2xl font-bold text-slate-950">Selalu siap membantu</h3>
-                    <p class="mt-3 max-w-md">Platform edukasi kesehatan yang memberi Anda bingkai informasi terpercaya dan akses ke artikel dokter untuk keputusan kesehatan sehari-hari.</p>
-                </div>
-                <a href="{{ route('artikel-kesehatan.index') }}" class="inline-flex items-center rounded-full bg-slate-950 px-7 py-4 text-sm font-semibold text-white transition hover:bg-slate-800">Mulai Baca Sekarang</a>
-            </div>
-        </footer>
-    </main>
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-inner">
+      <div class="foot-left">
+        <div class="tag" style="margin-bottom:.75rem">Klinik Koehried</div>
+        <h3>Selalu siap membantu</h3>
+        <p>Platform edukasi kesehatan yang memberi Anda bingkai informasi terpercaya dan akses ke artikel dokter.</p>
+      </div>
+      <a href="{{ route('artikel-kesehatan.index') }}" class="foot-cta">Mulai Baca Sekarang &rarr;</a>
+    </div>
+  </div>
+</main>
+
 </body>
 </html>

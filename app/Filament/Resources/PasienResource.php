@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class PasienResource extends Resource
 {
@@ -20,6 +21,26 @@ class PasienResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Master Data';
     protected static ?string $navigationLabel = 'Pasien';
+
+    public static function canViewAny(): bool
+    {
+        return Auth::user()->hasAnyRole(['admin', 'petugas']);
+    }
+
+    public static function canCreate(): bool
+    {
+        return Auth::user()->hasAnyRole(['admin', 'petugas']);
+    }
+
+    public static function canEdit($record): bool
+    {
+        return Auth::user()->hasAnyRole(['admin', 'petugas']);
+    }
+
+    public static function canDelete($record): bool
+    {
+        return Auth::user()->hasRole('admin');
+    }
 
     public static function form(Form $form): Form
     {
@@ -120,13 +141,16 @@ class PasienResource extends Resource
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
-                    Tables\Actions\EditAction::make(),
-                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\EditAction::make()
+                        ->visible(fn () => Auth::user()->hasAnyRole(['admin', 'petugas'])),
+                    Tables\Actions\DeleteAction::make()
+                        ->visible(fn () => Auth::user()->hasRole('admin')),
                 ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->visible(fn () => Auth::user()->hasRole('admin')),
                 ]),
             ]);
     }
