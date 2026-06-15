@@ -14,6 +14,8 @@ use App\Policies\PasienPolicy;
 use App\Policies\PemeriksaanPolicy;
 use App\Policies\PoliPolicy;
 use App\Policies\ResepObatPolicy;
+use App\Http\Responses\Auth\LoginResponse as AppLoginResponse;
+use Filament\Http\Responses\Auth\Contracts\LoginResponse as LoginResponseContract;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(LoginResponseContract::class, AppLoginResponse::class);
     }
 
     /**

@@ -3,8 +3,11 @@
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\PetugasDashboardController;
 
 Route::get('/', [PostController::class, 'landing'])->name('home');
+
+Route::redirect('/login', '/admin/login')->name('login');
 
 Route::post('/logout', function () {
     Auth::logout();
@@ -12,6 +15,11 @@ Route::post('/logout', function () {
     request()->session()->regenerateToken();
     return redirect('/');
 })->name('logout')->middleware('auth');
+
+// Petugas dashboard (protected)
+Route::get('/petugas/dashboard', [PetugasDashboardController::class, 'index'])
+    ->name('petugas.dashboard')
+    ->middleware(['auth']);
 
 Route::prefix('artikel-kesehatan')
     ->name('artikel-kesehatan.')

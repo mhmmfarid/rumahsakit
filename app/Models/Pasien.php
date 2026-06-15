@@ -36,4 +36,10 @@ class Pasien extends Model
     {
         return $this->hasOne(Pemeriksaan::class)->latestOfMany();
     }
+
+    // One To One: Pasien memiliki satu Kartu Pasien
+    public function kartuPasien(): HasOne
+    {
+        return $this->hasOne(KartuPasien::class);
+    }
 }

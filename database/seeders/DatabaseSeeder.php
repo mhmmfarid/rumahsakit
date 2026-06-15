@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             RolePermissionSeeder::class,
             UserSeeder::class,
             PasienSeeder::class,
+            KartuPasienSeeder::class,
             DokterSeeder::class,
             PoliSeeder::class,
             ObatSeeder::class,

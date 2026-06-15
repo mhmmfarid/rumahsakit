@@ -8,6 +8,7 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class PemeriksaanStatsWidget extends BaseWidget
 {
+    protected array|string|int $columnSpan = 1;
     protected function getStats(): array
     {
         return [
