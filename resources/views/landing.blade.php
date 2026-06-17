@@ -127,7 +127,7 @@
 <nav>
   <div class="nav-inner">
     <a href="{{ route('home') }}" class="brand">
-      <div class="brand-ico">K</div>
+      <div class="brand-ico">Koehrid</div>
       Klinik Koehried
     </a>
     <div class="nav-links">
