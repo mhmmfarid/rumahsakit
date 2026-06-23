@@ -46,7 +46,8 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $post->load(['user', 'categories', 'tags', 'comments.user']);
+        $shareButton = \Firefly\FilamentBlog\Models\ShareSnippet::query()->active()->first();
 
-        return view('filament-blog::blogs.show', compact('post'));
+        return view('filament-blog::blogs.show', compact('post', 'shareButton'));
     }
 }

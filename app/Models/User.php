@@ -8,9 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
+use Firefly\FilamentBlog\Traits\HasBlog;
+
 class User extends Authenticatable implements FilamentUser
 {
-    use HasRoles, Notifiable;
+    use HasRoles, Notifiable, HasBlog;
 
     protected $fillable = [
         'name',
@@ -35,5 +37,10 @@ class User extends Authenticatable implements FilamentUser
     {
         // Allow both admin and petugas to access the Filament admin panel
         return $this->hasAnyRole(['admin', 'petugas']);
+    }
+
+    public function canComment(): bool
+    {
+        return true;
     }
 }

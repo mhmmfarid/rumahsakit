@@ -11,7 +11,7 @@
  * | The recaptcha configuration is for setting up the recaptcha for the blog.
  */
 
-use Firefly\FilamentBlog\Models\User;
+use App\Models\User;
 
 return [
     'tables' => [
